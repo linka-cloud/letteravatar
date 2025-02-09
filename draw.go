@@ -58,9 +58,9 @@ func Draw(size int, letter []rune, options *Options) (image.Image, error) {
 		}
 	}
 
-	fontSize := float64(options.FontSize)
-	if options.FontSize == 0 {
-		fontSize = float64(size) * 0.6
+	fontSize := float64(size) * 0.6
+	if options != nil && options.FontSize != 0 {
+		fontSize = float64(options.FontSize)
 	}
 
 	return drawAvatar(bgColor, letterColor, font, size, fontSize, letter)
