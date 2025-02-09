@@ -9,23 +9,23 @@ import (
 )
 
 var names = []string{
-	"Alice",
-	"Bob",
-	"Carol",
-	"Dave",
-	"Eve",
-	"Frank",
-	"Gloria",
-	"Henry",
-	"Isabella",
-	"James",
-	"Жозефина",
-	"Ярослав",
+	"Alice Johnson",
+	"Bob Smith",
+	"Carol Davis",
+	"Dave Brown",
+	"Eve Wilson",
+	"Frank Miller",
+	"Gloria Taylor",
+	"Henry Anderson",
+	"Isabella Martinez",
+	"James Thomas",
+	"Жозефина Иванова",
+	"Ярослав Петров",
 }
 
 func main() {
 	for _, name := range names {
-		img, err := letteravatar.Draw(75, letteravatar.Initials(name), &letteravatar.Options{})
+		img, err := letteravatar.DrawInitials(75, name, &letteravatar.Options{})
 		if err != nil {
 			log.Fatal(err)
 		}

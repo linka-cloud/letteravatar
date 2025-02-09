@@ -38,8 +38,7 @@ func main() {
 		Font:     font,
 	}
 	for _, name := range names {
-
-		img, err := letteravatar.Draw(100, ([]rune(name))[:5], opt)
+		img, err := letteravatar.Draw(100, name, opt)
 		if err != nil {
 			log.Fatal(err)
 		}

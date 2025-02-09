@@ -31,9 +31,15 @@ type Options struct {
 
 var defaultLetterColor = color.RGBA{0xf0, 0xf0, 0xf0, 0xf0}
 
-// Draw generates a new letter-avatar image of the given size using the given letter
+// DrawInitials generates a new letter-avatar image of the given size using the initials of the given name
 // with the given options. Default parameters are used if a nil *Options is passed.
-func Draw(size int, letter []rune, options *Options) (image.Image, error) {
+func DrawInitials(size int, name string, options *Options) (image.Image, error) {
+	return Draw(size, Initials(name), options)
+}
+
+// Draw generates a new letter-avatar image of the given size using the given name
+// with the given options. Default parameters are used if a nil *Options is passed.
+func Draw(size int, content string, options *Options) (image.Image, error) {
 	font := defaultFont
 	if options != nil && options.Font != nil {
 		font = options.Font
@@ -63,13 +69,13 @@ func Draw(size int, letter []rune, options *Options) (image.Image, error) {
 		fontSize = float64(options.FontSize)
 	}
 
-	return drawAvatar(bgColor, letterColor, font, size, fontSize, letter)
+	return drawAvatar(bgColor, letterColor, font, size, fontSize, content)
 }
 
-func drawAvatar(bgColor, fgColor color.Color, font *truetype.Font, size int, fontSize float64, letter []rune) (image.Image, error) {
+func drawAvatar(bgColor, fgColor color.Color, font *truetype.Font, size int, fontSize float64, letters string) (image.Image, error) {
 	dst := newRGBA(size, size, bgColor)
 
-	src, err := drawString(bgColor, fgColor, font, fontSize, letter)
+	src, err := drawString(bgColor, fgColor, font, fontSize, letters)
 	if err != nil {
 		return nil, err
 	}
@@ -80,14 +86,14 @@ func drawAvatar(bgColor, fgColor color.Color, font *truetype.Font, size int, fon
 	return dst, nil
 }
 
-func drawString(bgColor, fgColor color.Color, font *truetype.Font, fontSize float64, letter []rune) (image.Image, error) {
+func drawString(bgColor, fgColor color.Color, font *truetype.Font, fontSize float64, letters string) (image.Image, error) {
 	c := freetype.NewContext()
 	c.SetDPI(72)
 
 	bb := font.Bounds(c.PointToFixed(fontSize))
 	w := bb.Max.X.Ceil() - bb.Min.X.Floor()
-	if len(letter) > 0 {
-		w = w + int(fontSize)*(len(letter)-1)
+	if len(letters) > 0 {
+		w = w + int(fontSize)*(len(letters)-1)
 	}
 	h := bb.Max.Y.Ceil() - bb.Min.Y.Floor()
 
@@ -100,7 +106,7 @@ func drawString(bgColor, fgColor color.Color, font *truetype.Font, fontSize floa
 	c.SetFontSize(fontSize)
 	c.SetFont(font)
 
-	p, err := c.DrawString(string(letter), fixed.Point26_6{X: 0, Y: bb.Max.Y})
+	p, err := c.DrawString(letters, fixed.Point26_6{X: 0, Y: bb.Max.Y})
 	if err != nil {
 		return nil, err
 	}

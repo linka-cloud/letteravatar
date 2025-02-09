@@ -62,7 +62,7 @@ func TestDraw(t *testing.T) {
 
 	for i, testcase := range testcases {
 		t.Run(fmt.Sprintf("%s-%v", string(testcase.letter), testcase.size), func(t *testing.T) {
-			img, err := Draw(testcase.size, []rune{testcase.letter}, testcase.options)
+			img, err := Draw(testcase.size, string(testcase.letter), testcase.options)
 			if err != nil {
 				t.Fatalf("failed to create avatar #%d: %s", i, err)
 			}
@@ -83,14 +83,14 @@ func TestPaletteKey(t *testing.T) {
 	}
 	avatars := make(map[string]image.Image)
 	for _, u := range users {
-		img, err := Draw(30, []rune{[]rune(u)[0]}, &Options{PaletteKey: u})
+		img, err := Draw(30, string([]rune(u)[0]), &Options{PaletteKey: u})
 		if err != nil {
 			t.Fatalf("failed to create avatar for %s: %s", u, err)
 		}
 		avatars[u] = img
 	}
 	for _, u := range users {
-		img, err := Draw(30, []rune{[]rune(u)[0]}, &Options{PaletteKey: u})
+		img, err := Draw(30, string([]rune(u)[0]), &Options{PaletteKey: u})
 		if err != nil {
 			t.Fatalf("failed to create avatar for %s: %s", u, err)
 		}

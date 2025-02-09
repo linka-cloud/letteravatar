@@ -60,7 +60,6 @@ import (
 	"image/png"
 	"log"
 	"os"
-	"unicode/utf8"
 
 	"go.linka.cloud/letteravatar"
 )
@@ -82,9 +81,7 @@ var names = []string{
 
 func main() {
 	for _, name := range names {
-		firstLetter, _ := utf8.DecodeRuneInString(name)
-
-		img, err := letteravatar.Draw(75, []rune{firstLetter}, nil)
+		img, err := letteravatar.Draw(75, letteravatar.Initials(name), nil)
 		if err != nil {
 			log.Fatal(err)
 		}
