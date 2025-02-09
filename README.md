@@ -26,7 +26,7 @@ type Options struct {
 Using a custom palette:
 
 ```go
-img, err := letteravatar.Draw(100, 'A', &letteravatar.Options{
+img, err := letteravatar.Draw(100, []rune{'A'}, &letteravatar.Options{
 	Palette: []color.Color{
 		color.RGBA{255, 0, 0, 255},
 		color.RGBA{0, 255, 0, 255},
@@ -62,7 +62,7 @@ import (
 	"os"
 	"unicode/utf8"
 
-	"github.com/disintegration/letteravatar"
+	"github.com/UnderTreeTech/letteravatar"
 )
 
 var names = []string{
@@ -84,7 +84,7 @@ func main() {
 	for _, name := range names {
 		firstLetter, _ := utf8.DecodeRuneInString(name)
 
-		img, err := letteravatar.Draw(75, firstLetter, nil)
+		img, err := letteravatar.Draw(75, []rune{firstLetter}, nil)
 		if err != nil {
 			log.Fatal(err)
 		}
