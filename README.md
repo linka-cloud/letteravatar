@@ -62,7 +62,7 @@ import (
 	"os"
 	"unicode/utf8"
 
-	"github.com/UnderTreeTech/letteravatar"
+	"go.linka.cloud/letteravatar"
 )
 
 var names = []string{

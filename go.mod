@@ -1,4 +1,4 @@
-module github.com/UnderTreeTech/letteravatar
+module go.linka.cloud/letteravatar
 
 go 1.14
 
